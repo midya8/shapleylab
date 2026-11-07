@@ -9,3 +9,5 @@ test ! -s /tmp/shapleylab-budget-output
 echo 'exact-work budget gate rejects before output as expected'
 
 python -m shapleylab explain --input examples/grouped.json
+
+python -m shapleylab explain --input examples/product.json --permutations 64 --seed 0
