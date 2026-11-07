@@ -1,5 +1,6 @@
 from .core import explain
 from .grouped import explain_groups
+from .sampled import explain_sampled
 from .model import polynomial
 
 
@@ -25,7 +26,13 @@ def run_demo():
     assert grouped['attributions']==[.5,.5]
     assert individual['attributions']==[1/3,1/3,1/3]
     assert sum(individual['attributions'][:2])!=grouped['attributions'][0]
-    return {'three_way_individual':individual,'three_way_grouped':grouped,
+    tiny_sample=explain_sampled(triple,[1,1,1],[[0,0,0]],['a','b','c'],permutations=2,seed=0)
+    longer_sample=explain_sampled(triple,[1,1,1],[[0,0,0]],['a','b','c'],permutations=4096,seed=0)
+    assert tiny_sample['attributions']==[.5,.5,0.]
+    assert tiny_sample['monte_carlo_standard_errors'][2]==0
+    assert individual['attributions'][2]!=tiny_sample['attributions'][2]
+    return {'permutation_small_sample':tiny_sample,'permutation_longer_sample':longer_sample,
+            'three_way_individual':individual,'three_way_grouped':grouped,
             'product_zero_background':product,'product_shifted_background':shifted,
             'joint_background_dependence':dependent,'off_manifold_hybrids':offmanifold,
             'sigmoid_polynomial':nonlinear,
