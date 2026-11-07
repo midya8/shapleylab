@@ -7,3 +7,5 @@ if python -m shapleylab explain --input examples/product.json --max-evaluations 
 fi
 test ! -s /tmp/shapleylab-budget-output
 echo 'exact-work budget gate rejects before output as expected'
+
+python -m shapleylab explain --input examples/grouped.json
