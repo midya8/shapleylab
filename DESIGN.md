@@ -21,7 +21,7 @@ For product score with background (0,0)/(1,1), v(empty)=0.5, not 0.25.
 For d features, store 2**d coalition values by integer bit mask. Each feature's
 Shapley value averages its marginal increment using weight
 `1 / (d * choose(d-1, |S|))`. An independent factorial ordering implementation in
-tests checks dimensions 1-6. No Monte Carlo or regression approximation occurs.
+tests checks dimensions 1-6. In exact mode, no Monte Carlo or regression approximation occurs.
 The full mask invokes the score once instead of B times. Every other mask uses
 all B rows, so calls equal `(2**d - 1)*B + 1`. The callback must be deterministic;
 we do not spend extra calls trying to prove determinism. Counts are not walltime.
@@ -110,6 +110,71 @@ Source for the grouping concept and distinction from post-grouped sums:
 ShapleyLab retains its declared empirical replacement contribution function;
 it does not implement that paper's conditional-distribution estimation or claim
 new grouping theory.
+
+## Optional permutation approximation
+
+Exact mode remains the default and is preferable for small games. For up to
+64 individual features, `explain_sampled` instead samples independent uniform
+feature orderings with an isolated seeded RNG. For each ordering, it adds every
+feature in sequence and records that feature's marginal score increment. The
+mean increment is its estimated attribution. Every visited coalition is still
+averaged over **all** background rows; backgrounds are not subsampled.
+
+```python
+from shapleylab import explain_sampled
+
+result = explain_sampled(
+    lambda row: row[0] * row[1] * row[2],
+    point=[1, 1, 1], background=[[0, 0, 0]],
+    feature_names=["a", "b", "c"], permutations=2, seed=0,
+)
+assert result["attributions"] == [0.5, 0.5, 0.0]
+assert result["monte_carlo_standard_errors"][2] == 0.0
+# Exact third attribution is 1/3, despite zero observed Monte Carlo error.
+```
+
+```sh
+python -m shapleylab explain --input examples/product.json --permutations 64 --seed 0
+```
+
+Sampled output has `method=independent_permutation_monte_carlo`, P/seed, per-feature
+MC standard errors, cached coalition count, actual score calls and a preflight
+upper call bound. No complete coalition-value array is reported in sampled mode.
+Sampled grouped mode is not implemented and is rejected, not silently ignored.
+P must be 2-10000 (default API 256), seed an integer in [0, 2**32). Exact CLI mode
+rejects a nondefault seed without `--permutations`.
+
+The diagnostic is sample SD of per-permutation increments divided by sqrt(P).
+It describes permutation randomness for this **fixed** model/point/background,
+not model-training uncertainty, background representativeness or confidence in
+feature importance. No confidence intervals, adaptive stopping, antithetic
+pairing or convergence certificate. Zero observed MC error at small P can miss
+a nonzero exact attribution, as the executable example shows. Each ordering
+telescopes to prediction minus baseline, so efficiency can pass while individual
+allocations remain wrong.
+
+On the three-way product, P=2/seed 0 gives `[0.5, 0.5, 0]`, standard errors
+`[0.5, 0.5, 0]`, six calls. P=4096/seed 0 gives
+`[0.3220215, 0.3415527, 0.3364258]`, standard errors about
+`[0.0073017, 0.0074108, 0.0073835]`, eight calls with caching. Exact is
+`[1/3, 1/3, 1/3]`. These are fixed development examples, not a guarantee that
+more samples always improve a realized estimate. Even when all eight coalition
+values enter the cache, sampled output still averages the drawn increments;
+it does not silently switch to the exact coalition-weight formula. Prefer exact
+mode when that game fits its budget.
+
+For d features and B rows, at most `min(2**d, 2 + P*(d-1))` unique masks are visited.
+The preflight upper call bound is `(max_masks - 1)*B + 1`, accounting for the
+single full-mask call. A bound exceeding the budget rejects before any callback;
+this can be conservative because orderings can share masks. A tested 64-feature
+sum with P=32/seed 4 uses 2002 calls (upper bound 2018), producing 64 unit
+attributions and zero MC errors since every linear marginal is constant. This
+is a call count for a constructed score, not a walltime or quality benchmark.
+
+Standard permutation-sampling idea:
+[Captum Shapley Value Sampling documentation](https://captum.ai/api/shapley_value_sampling.html).
+Independent educational implementation, no Captum dependency. This mode is not
+SHAP's forward/reverse antithetic PermutationExplainer or a new estimator.
 
 ## Source credit
 
