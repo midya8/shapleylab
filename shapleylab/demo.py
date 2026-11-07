@@ -1,4 +1,5 @@
 from .core import explain
+from .grouped import explain_groups
 from .model import polynomial
 
 
@@ -17,7 +18,15 @@ def run_demo():
     assert product['attributions']!=shifted['attributions']
     assert dependent['baseline']==.5  # Not .25: missing features remain jointly sampled.
     assert abs(nonlinear['efficiency_residual'])<1e-12
-    return {'product_zero_background':product,'product_shifted_background':shifted,
+    triple=lambda x:x[0]*x[1]*x[2]
+    individual=explain(triple,[1,1,1],[[0,0,0]],['a','b','c'])
+    grouped=explain_groups(triple,[1,1,1],[[0,0,0]],['a','b','c'],
+                           [{'name':'ab','features':[0,1]},{'name':'c','features':[2]}])
+    assert grouped['attributions']==[.5,.5]
+    assert individual['attributions']==[1/3,1/3,1/3]
+    assert sum(individual['attributions'][:2])!=grouped['attributions'][0]
+    return {'three_way_individual':individual,'three_way_grouped':grouped,
+            'product_zero_background':product,'product_shifted_background':shifted,
             'joint_background_dependence':dependent,'off_manifold_hybrids':offmanifold,
             'sigmoid_polynomial':nonlinear,
             'scope':'Selected hand-constructed arithmetic fixtures, not a trained-model quality benchmark. '
