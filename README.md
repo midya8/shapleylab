@@ -2,7 +2,7 @@
 
 Exact small-feature Shapley attribution from scratch, with every coalition
 available for audit. Dependency-free Python 3.10+, scalar callback API, strict
-JSON CLI and 22 tests. No model training, paid APIs or sampled-coalition shortcut.
+JSON CLI and 34 tests. No model training, paid APIs or sampled-coalition shortcut.
 
 ## Exact arithmetic is not a causal explanation
 
@@ -71,12 +71,69 @@ python -m shapleylab explain --input examples/product.json --max-evaluations 14
 # Second command rejects: 15 calls are required, before any model call/output.
 ```
 
-The JSON CLI requires exactly `feature_names`, `point`, `background`, `model`.
+The JSON CLI requires `feature_names`, `point`, `background`, `model`,
+plus optionally `groups` and no other fields.
 Its built-in model is deliberately small: `bias`, aligned `linear` coefficients,
 unique pair terms `{i, j, weight}` with `0 <= i < j < d`, and `output` equal to
 `raw` or `sigmoid`. These are supplied coefficients, not a fitted or validated
 model. The callback API is not limited to polynomials. `--input -` reads stdin.
 Invalid input exits 2, writes stderr and produces no partial JSON report.
+
+## Atomic feature groups
+
+Optional `groups` are an explicit, disjoint, exhaustive partition of raw feature
+indices. Every feature in a group switches together between target and the same
+background row. `explain_groups` applies the ordinary Shapley formula to these
+groups as atomic players; it does not compute individual values then add them.
+
+```python
+from shapleylab import explain_groups
+
+result = explain_groups(
+    lambda row: row[0] * row[1] * row[2],
+    point=[1, 1, 1], background=[[0, 0, 0]],
+    feature_names=["a", "b", "c"],
+    groups=[{"name": "ab", "features": [0, 1]},
+            {"name": "c", "features": [2]}],
+)
+assert result["group_names"] == ["ab", "c"]
+assert result["attributions"] == [0.5, 0.5]
+```
+
+The ungrouped three-way product gives `[1/3, 1/3, 1/3]`. Summing the first two
+individual values gives 2/3, **not** the grouped value 1/2. Grouping changes the
+coalition game and the question; no arbitrary credit split back to members is
+reported. This mode is not an Owen-value allocation within groups.
+
+The same optional `groups` key is accepted by the JSON CLI:
+
+```sh
+python -m shapleylab explain --input examples/grouped.json
+```
+
+In group mode, `attributions` align with `group_names`, not `feature_names`.
+`feature_names` retains the raw coordinate order; `group_feature_indices` records
+the partition; `attribution_unit` explicitly identifies atomic groups. Coalition
+mask bit j includes all members of group j. Names must be distinct, groups
+nonempty, indices valid integers, with every feature covered exactly once.
+
+Up to 64 raw features and 12 groups, still at most 1000 background rows and the
+same call budget. Replace d by group count G in `(2**G - 1)*B + 1`. The three-way
+fixture uses 4 calls instead of 8 because its game has 2 players instead of 3;
+this is not an equal-question speed benchmark. A tested 64-feature/eight-group
+sum uses 256 calls with one background row, returning eight values of 8.
+
+Grouping a known correlated block prevents hybrids that split that block. It
+does not preserve dependencies across different groups, infer groups for you,
+make reference rows representative, or establish conditional/causal validity.
+Singleton groups recover the original individual-feature game; one group
+receives prediction minus baseline. Group ordering changes output order only.
+
+Source for the grouping concept and distinction from post-grouped sums:
+[Jullum, Redelmeier and Aas, groupShapley (2021)](https://ar5iv.labs.arxiv.org/html/2106.12228).
+ShapleyLab retains its declared empirical replacement contribution function;
+it does not implement that paper's conditional-distribution estimation or claim
+new grouping theory.
 
 ## Audit and limits
 
@@ -87,11 +144,11 @@ Invalid input exits 2, writes stderr and produces no partial JSON report.
 - For `d` features and `B` background rows: `2**d` coalitions and exactly
   `(2**d - 1) * B + 1` model calls. The full coalition needs one call because it
   is the same point for every background row. This counts calls, not latency.
-- Hard input limits: 1-12 features, 1-1000 background rows. Default budget 200000
+- Hard input limits: 1-12 individual features (or 1-64 raw features partitioned
+  into 1-12 atomic groups), 1-1000 background rows. Default budget 200000
   calls, configurable up to 1000000. A rejected budget makes no model calls.
   Exponential enumeration is for small explanations, not a TreeSHAP replacement.
-- Finite aligned numeric inputs only, no automatic normalization, no feature
-  grouping or conditional imputation. Nonfinite outputs/arithmetic fail rather
+- Finite aligned numeric inputs only, no automatic normalization, optional explicit grouping but no conditional imputation. Nonfinite outputs/arithmetic fail rather
   than emit NaN/Infinity JSON. Constant background outputs retain their exact
   float value; other means use scaled `fsum` to avoid raw-sum overflow.
 - Hybrid inputs can be unrealistic, especially with correlated features.
@@ -105,11 +162,13 @@ Invalid input exits 2, writes stderr and produces no partial JSON report.
 python -m unittest discover -s tests -v
 ```
 
-22 tests cover product symmetry/dummy/efficiency, linear closed form, linearity,
+34 tests cover product symmetry/dummy/efficiency, linear closed form, linearity,
 feature permutation equivariance, independent factorial permutation references
 for dimensions 1-6, correlated joint background, off-manifold hybrids, background
 sensitivity, full coalition audit, exact call counts, early budget rejection,
-finite extremes, immutable inputs, model schema and CLI failures. CI tests Python
+finite extremes, immutable inputs, model schema and CLI failures. Group tests cover singleton equivalence,
+whole-block masking, strict partition validation, group ordering, independent
+group-permutation references, no aliases and 64-feature grouped work counts. CI tests Python
 3.10-3.13 and runs the offline demo with an intentionally rejected budget gate.
 
 ## Sources and credit
