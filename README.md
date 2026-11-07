@@ -2,7 +2,8 @@
 
 Exact small-feature Shapley attribution from scratch, with every coalition
 available for audit. Dependency-free Python 3.10+, scalar callback API, strict
-JSON CLI and 34 tests. No model training, paid APIs or sampled-coalition shortcut.
+JSON CLI and 43 tests. No model training or paid APIs. Exact mode enumerates all coalitions; an
+optional, separately labeled permutation mode handles larger individual games.
 
 ## Exact arithmetic is not a causal explanation
 
@@ -135,6 +136,71 @@ ShapleyLab retains its declared empirical replacement contribution function;
 it does not implement that paper's conditional-distribution estimation or claim
 new grouping theory.
 
+## Optional permutation approximation
+
+Exact mode remains the default and is preferable for small games. For up to
+64 individual features, `explain_sampled` instead samples independent uniform
+feature orderings with an isolated seeded RNG. For each ordering, it adds every
+feature in sequence and records that feature's marginal score increment. The
+mean increment is its estimated attribution. Every visited coalition is still
+averaged over **all** background rows; backgrounds are not subsampled.
+
+```python
+from shapleylab import explain_sampled
+
+result = explain_sampled(
+    lambda row: row[0] * row[1] * row[2],
+    point=[1, 1, 1], background=[[0, 0, 0]],
+    feature_names=["a", "b", "c"], permutations=2, seed=0,
+)
+assert result["attributions"] == [0.5, 0.5, 0.0]
+assert result["monte_carlo_standard_errors"][2] == 0.0
+# Exact third attribution is 1/3, despite zero observed Monte Carlo error.
+```
+
+```sh
+python -m shapleylab explain --input examples/product.json --permutations 64 --seed 0
+```
+
+Sampled output has `method=independent_permutation_monte_carlo`, P/seed, per-feature
+MC standard errors, cached coalition count, actual score calls and a preflight
+upper call bound. No complete coalition-value array is reported in sampled mode.
+Sampled grouped mode is not implemented and is rejected, not silently ignored.
+P must be 2-10000 (default API 256), seed an integer in [0, 2**32). Exact CLI mode
+rejects a nondefault seed without `--permutations`.
+
+The diagnostic is sample SD of per-permutation increments divided by sqrt(P).
+It describes permutation randomness for this **fixed** model/point/background,
+not model-training uncertainty, background representativeness or confidence in
+feature importance. No confidence intervals, adaptive stopping, antithetic
+pairing or convergence certificate. Zero observed MC error at small P can miss
+a nonzero exact attribution, as the executable example shows. Each ordering
+telescopes to prediction minus baseline, so efficiency can pass while individual
+allocations remain wrong.
+
+On the three-way product, P=2/seed 0 gives `[0.5, 0.5, 0]`, standard errors
+`[0.5, 0.5, 0]`, six calls. P=4096/seed 0 gives
+`[0.3220215, 0.3415527, 0.3364258]`, standard errors about
+`[0.0073017, 0.0074108, 0.0073835]`, eight calls with caching. Exact is
+`[1/3, 1/3, 1/3]`. These are fixed development examples, not a guarantee that
+more samples always improve a realized estimate. Even when all eight coalition
+values enter the cache, sampled output still averages the drawn increments;
+it does not silently switch to the exact coalition-weight formula. Prefer exact
+mode when that game fits its budget.
+
+For d features and B rows, at most `min(2**d, 2 + P*(d-1))` unique masks are visited.
+The preflight upper call bound is `(max_masks - 1)*B + 1`, accounting for the
+single full-mask call. A bound exceeding the budget rejects before any callback;
+this can be conservative because orderings can share masks. A tested 64-feature
+sum with P=32/seed 4 uses 2002 calls (upper bound 2018), producing 64 unit
+attributions and zero MC errors since every linear marginal is constant. This
+is a call count for a constructed score, not a walltime or quality benchmark.
+
+Standard permutation-sampling idea:
+[Captum Shapley Value Sampling documentation](https://captum.ai/api/shapley_value_sampling.html).
+Independent educational implementation, no Captum dependency. This mode is not
+SHAP's forward/reverse antithetic PermutationExplainer or a new estimator.
+
 ## Audit and limits
 
 - Output contains baseline, prediction, each attribution, their sum, the signed
@@ -145,7 +211,7 @@ new grouping theory.
   `(2**d - 1) * B + 1` model calls. The full coalition needs one call because it
   is the same point for every background row. This counts calls, not latency.
 - Hard input limits: 1-12 individual features (or 1-64 raw features partitioned
-  into 1-12 atomic groups), 1-1000 background rows. Default budget 200000
+  into 1-12 atomic groups), 1-1000 background rows. Sampled individual mode permits up to 64 features. Default budget 200000
   calls, configurable up to 1000000. A rejected budget makes no model calls.
   Exponential enumeration is for small explanations, not a TreeSHAP replacement.
 - Finite aligned numeric inputs only, no automatic normalization, optional explicit grouping but no conditional imputation. Nonfinite outputs/arithmetic fail rather
@@ -162,13 +228,15 @@ new grouping theory.
 python -m unittest discover -s tests -v
 ```
 
-34 tests cover product symmetry/dummy/efficiency, linear closed form, linearity,
+43 tests cover product symmetry/dummy/efficiency, linear closed form, linearity,
 feature permutation equivariance, independent factorial permutation references
 for dimensions 1-6, correlated joint background, off-manifold hybrids, background
 sensitivity, full coalition audit, exact call counts, early budget rejection,
 finite extremes, immutable inputs, model schema and CLI failures. Group tests cover singleton equivalence,
 whole-block masking, strict partition validation, group ordering, independent
-group-permutation references, no aliases and 64-feature grouped work counts. CI tests Python
+group-permutation references, no aliases and 64-feature grouped work counts.
+Sampling tests check seeded ordering means/standard errors, caching/work bounds,
+RNG isolation, 64-feature linear results and the zero-MC-error counterexample. CI tests Python
 3.10-3.13 and runs the offline demo with an intentionally rejected budget gate.
 
 ## Sources and credit
