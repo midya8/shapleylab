@@ -38,8 +38,9 @@ arithmetic or unknown population attribution.
 
 ## Work limits
 
-Reject dimensions outside 1-12, background sizes outside 1-1000, and budgets
-outside 1-1000000. Default call budget 200000. Validate budget before invoking the
+Individual mode rejects dimensions outside 1-12. Group mode accepts up to
+64 raw features partitioned into at most 12 atomic groups. Both reject background
+sizes outside 1-1000 and budgets outside 1-1000000. Default call budget 200000. Validate budget before invoking the
 callback. Lists are copied where output could otherwise alias input; callbacks
 receive immutable tuples. A malicious or stateful callback is outside the model
 contract and cannot be made safe by an attribution algorithm.
