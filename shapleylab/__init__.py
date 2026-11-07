@@ -2,3 +2,5 @@
 from .core import explain
 
 from .grouped import explain_groups
+
+from .sampled import explain_sampled
