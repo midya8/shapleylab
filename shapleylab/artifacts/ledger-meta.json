@@ -1,0 +1,296 @@
+{
+  "version": 1,
+  "original_demo": {
+    "permutation_small_sample": {
+      "method": "independent_permutation_monte_carlo",
+      "feature_names": [
+        "a",
+        "b",
+        "c"
+      ],
+      "attributions": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "monte_carlo_standard_errors": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "baseline": 0,
+      "prediction": 1,
+      "attribution_sum": 1.0,
+      "efficiency_residual": 0.0,
+      "permutations": 2,
+      "seed": 0,
+      "background_rows": 1,
+      "cached_coalitions": 6,
+      "model_evaluations": 6,
+      "preflight_upper_model_evaluations": 6,
+      "game": "empirical_background_replacement",
+      "scope": "Permutation approximation for the fixed finite-background replacement game. Each visited coalition is integrated over all supplied background rows. Standard errors are sample SD of per-ordering increments divided by sqrt(P), for permutation randomness only. Not confidence bounds, background/model uncertainty, conditional or causal validity. Requires a deterministic side-effect-free score callback. Zero observed MC error can miss a nonzero exact value at small P. Efficiency can hold despite inaccurate allocations. No early stopping, antithetic pairing, feature groups or convergence certificate."
+    },
+    "permutation_longer_sample": {
+      "method": "independent_permutation_monte_carlo",
+      "feature_names": [
+        "a",
+        "b",
+        "c"
+      ],
+      "attributions": [
+        0.322021484375,
+        0.341552734375,
+        0.33642578125
+      ],
+      "monte_carlo_standard_errors": [
+        0.0073016907734036645,
+        0.007410754552134393,
+        0.0073835026309620145
+      ],
+      "baseline": 0,
+      "prediction": 1,
+      "attribution_sum": 1.0,
+      "efficiency_residual": 0.0,
+      "permutations": 4096,
+      "seed": 0,
+      "background_rows": 1,
+      "cached_coalitions": 8,
+      "model_evaluations": 8,
+      "preflight_upper_model_evaluations": 8,
+      "game": "empirical_background_replacement",
+      "scope": "Permutation approximation for the fixed finite-background replacement game. Each visited coalition is integrated over all supplied background rows. Standard errors are sample SD of per-ordering increments divided by sqrt(P), for permutation randomness only. Not confidence bounds, background/model uncertainty, conditional or causal validity. Requires a deterministic side-effect-free score callback. Zero observed MC error can miss a nonzero exact value at small P. Efficiency can hold despite inaccurate allocations. No early stopping, antithetic pairing, feature groups or convergence certificate."
+    },
+    "three_way_individual": {
+      "feature_names": [
+        "a",
+        "b",
+        "c"
+      ],
+      "attributions": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "baseline": 0,
+      "prediction": 1,
+      "attribution_sum": 1.0,
+      "efficiency_residual": 0.0,
+      "coalition_values": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "coalition_index": "integer mask, bit j includes feature_names[j]",
+      "background_rows": 1,
+      "coalitions": 8,
+      "model_evaluations": 8,
+      "game": "empirical_background_replacement",
+      "scope": "Exact enumeration of this finite-background game, up to floating-point arithmetic. Not conditional SHAP, a confidence interval, causal attribution, data-manifold validity or proof of model quality. Hybrid rows can be out of distribution. Background choice and score units/link change the explanation. Callback determinism is required but not verified."
+    },
+    "three_way_grouped": {
+      "attributions": [
+        0.5,
+        0.5
+      ],
+      "baseline": 0,
+      "prediction": 1,
+      "attribution_sum": 1.0,
+      "efficiency_residual": 0.0,
+      "coalition_values": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "coalition_index": "integer mask, bit j includes all features in group_names[j]",
+      "background_rows": 1,
+      "coalitions": 4,
+      "model_evaluations": 4,
+      "game": "empirical_background_atomic_group_replacement",
+      "scope": "Exact enumeration of this finite-background game, up to floating-point arithmetic. Not conditional SHAP, a confidence interval, causal attribution, data-manifold validity or proof of model quality. Hybrid rows can be out of distribution. Background choice and score units/link change the explanation. Callback determinism is required but not verified. Groups are atomic players and change the coalition game. Group attribution generally differs from summed individual-feature attribution. No within-group credit allocation, automatic group discovery, conditional masking or causal guarantee. Grouping prevents only within-group hybrid splits, not dependence breaks across groups.",
+      "group_names": [
+        "ab",
+        "c"
+      ],
+      "feature_names": [
+        "a",
+        "b",
+        "c"
+      ],
+      "group_feature_indices": [
+        [
+          0,
+          1
+        ],
+        [
+          2
+        ]
+      ],
+      "attribution_unit": "atomic_group_in_group_names_order"
+    },
+    "product_zero_background": {
+      "feature_names": [
+        "a",
+        "b",
+        "unused"
+      ],
+      "attributions": [
+        3.0,
+        3.0,
+        0.0
+      ],
+      "baseline": 0,
+      "prediction": 6,
+      "attribution_sum": 6.0,
+      "efficiency_residual": 0.0,
+      "coalition_values": [
+        0,
+        0,
+        0,
+        6,
+        0,
+        0,
+        0,
+        6
+      ],
+      "coalition_index": "integer mask, bit j includes feature_names[j]",
+      "background_rows": 2,
+      "coalitions": 8,
+      "model_evaluations": 15,
+      "game": "empirical_background_replacement",
+      "scope": "Exact enumeration of this finite-background game, up to floating-point arithmetic. Not conditional SHAP, a confidence interval, causal attribution, data-manifold validity or proof of model quality. Hybrid rows can be out of distribution. Background choice and score units/link change the explanation. Callback determinism is required but not verified."
+    },
+    "product_shifted_background": {
+      "feature_names": [
+        "a",
+        "b",
+        "unused"
+      ],
+      "attributions": [
+        2.0,
+        3.0,
+        0.0
+      ],
+      "baseline": 1,
+      "prediction": 6,
+      "attribution_sum": 5.0,
+      "efficiency_residual": 0.0,
+      "coalition_values": [
+        1,
+        2,
+        3,
+        6,
+        1,
+        2,
+        3,
+        6
+      ],
+      "coalition_index": "integer mask, bit j includes feature_names[j]",
+      "background_rows": 2,
+      "coalitions": 8,
+      "model_evaluations": 15,
+      "game": "empirical_background_replacement",
+      "scope": "Exact enumeration of this finite-background game, up to floating-point arithmetic. Not conditional SHAP, a confidence interval, causal attribution, data-manifold validity or proof of model quality. Hybrid rows can be out of distribution. Background choice and score units/link change the explanation. Callback determinism is required but not verified."
+    },
+    "joint_background_dependence": {
+      "feature_names": [
+        "a",
+        "b"
+      ],
+      "attributions": [
+        0.25,
+        0.25
+      ],
+      "baseline": 0.5,
+      "prediction": 1,
+      "attribution_sum": 0.5,
+      "efficiency_residual": 0.0,
+      "coalition_values": [
+        0.5,
+        0.5,
+        0.5,
+        1
+      ],
+      "coalition_index": "integer mask, bit j includes feature_names[j]",
+      "background_rows": 2,
+      "coalitions": 4,
+      "model_evaluations": 7,
+      "game": "empirical_background_replacement",
+      "scope": "Exact enumeration of this finite-background game, up to floating-point arithmetic. Not conditional SHAP, a confidence interval, causal attribution, data-manifold validity or proof of model quality. Hybrid rows can be out of distribution. Background choice and score units/link change the explanation. Callback determinism is required but not verified."
+    },
+    "off_manifold_hybrids": {
+      "feature_names": [
+        "a",
+        "b"
+      ],
+      "attributions": [
+        0.0,
+        0.0
+      ],
+      "baseline": 0,
+      "prediction": 0,
+      "attribution_sum": 0.0,
+      "efficiency_residual": 0.0,
+      "coalition_values": [
+        0,
+        0.5,
+        0.5,
+        0
+      ],
+      "coalition_index": "integer mask, bit j includes feature_names[j]",
+      "background_rows": 2,
+      "coalitions": 4,
+      "model_evaluations": 7,
+      "game": "empirical_background_replacement",
+      "scope": "Exact enumeration of this finite-background game, up to floating-point arithmetic. Not conditional SHAP, a confidence interval, causal attribution, data-manifold validity or proof of model quality. Hybrid rows can be out of distribution. Background choice and score units/link change the explanation. Callback determinism is required but not verified."
+    },
+    "sigmoid_polynomial": {
+      "feature_names": [
+        "a",
+        "b",
+        "unused"
+      ],
+      "attributions": [
+        0.44547519369262023,
+        -0.013618799660871232,
+        0.0
+      ],
+      "baseline": 0.4036271430716877,
+      "prediction": 0.8354835371034367,
+      "attribution_sum": 0.431856394031749,
+      "efficiency_residual": 0.0,
+      "coalition_values": [
+        0.4036271430716877,
+        0.8350036050884636,
+        0.3759096117349721,
+        0.8354835371034367,
+        0.4036271430716877,
+        0.8350036050884636,
+        0.3759096117349721,
+        0.8354835371034367
+      ],
+      "coalition_index": "integer mask, bit j includes feature_names[j]",
+      "background_rows": 3,
+      "coalitions": 8,
+      "model_evaluations": 22,
+      "game": "empirical_background_replacement",
+      "scope": "Exact enumeration of this finite-background game, up to floating-point arithmetic. Not conditional SHAP, a confidence interval, causal attribution, data-manifold validity or proof of model quality. Hybrid rows can be out of distribution. Background choice and score units/link change the explanation. Callback determinism is required but not verified."
+    },
+    "scope": "Selected hand-constructed arithmetic fixtures, not a trained-model quality benchmark. Exact means enumerate every coalition for the declared finite-background game, not conditional/causal correctness. Same prediction can have different attributions."
+  },
+  "arm_names": [
+    "product_zero_background",
+    "product_shifted_background",
+    "joint_background_dependence",
+    "off_manifold_hybrids",
+    "sigmoid_polynomial",
+    "three_way_individual",
+    "three_way_grouped"
+  ]
+}
