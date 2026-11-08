@@ -33,7 +33,7 @@ def write():
     dump(ROOT/'ledger-meta.json',{**{k:v for k,v in r.items() if k!='arms'},'arm_names':list(r['arms'])})
     for name,a in r['arms'].items():
         dump(ROOT/('ledger-'+name+'.json'),{k:v for k,v in a.items() if k!='edits'})
-        for i,start in enumerate(range(0,len(a['edits']),5)):dump(ROOT/('ledger-'+name+'-edits-'+str(i)+'.json'),a['edits'][start:start+5])
+        for i,start in enumerate(range(0,len(a['edits']),5)):(ROOT/('ledger-'+name+'-edits-'+str(i)+'.json')).write_text(json.dumps(a['edits'][start:start+5],separators=(',',':'),allow_nan=False)+'\n')
     docs=ROOT.parent.parent/'docs';docs.mkdir(exist_ok=True)
     (docs/'data.js').write_text('globalThis.SHAPLEY_DATA='+json.dumps(dict(arms={k:v['definition'] for k,v in r['arms'].items()},original_demo=r['original_demo']),separators=(',',':'),allow_nan=False)+';\n')
     assert_reproduces(saved(),r)
