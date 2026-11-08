@@ -249,3 +249,25 @@ Standard Shapley formula and empirical-background masking, not new theory:
 
 This is an independent educational implementation, not affiliated with SHAP or
 PiML and not their optimized algorithms. MIT license.
+
+## Transparent coalition ledger (v0.2)
+
+`python -m shapleylab audit --input examples/product.json` logs the original
+exact engine's actual calls, then exposes each hybrid row, weighted marginal
+and complete small permutation path without further score calls. Atomic groups
+stay atomic; no post-summed or within-group credits. Ledger bounds:1-6players,
+1-32 background rows. The original exact/grouped/sampled APIs keep their bounds.
+
+A dependency-free browser inspector in `docs/` independently recomputes the
+seven original exact synthetic games under bounded target edits. Every reference
+row, score and weighting remains inspectable. Invalid inputs clear stale results
+and exports.95 coordinate-edit witnesses,128 Fraction controls,64 BigInt controls,
+49 Python tests and four Node/actual-Chrome tests support this implementation.
+Installed11-module/four-command reproduction retains original demo and all
+exact/grouped/sampled modes. [Derivation and limits](LEDGER.md).
+
+Zero credits can hide off-diagonal hybrids; one ordering can telescope while
+misallocating individual shares. These are original exact counterexamples,
+not a trained-model or real-data explanation benchmark. Browser counts are a
+fixed-game evaluation plan, native counts are actual logged callbacks. Neither
+is a source-authenticity, causal, calibration or explanation-quality certificate.
