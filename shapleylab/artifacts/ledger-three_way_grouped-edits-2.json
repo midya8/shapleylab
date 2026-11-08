@@ -1,0 +1,1427 @@
+[
+ {
+  "feature": 2,
+  "value": 1,
+  "witness": {
+   "version": 1,
+   "feature_names": [
+    "a",
+    "b",
+    "c"
+   ],
+   "point": [
+    1,
+    1,
+    1
+   ],
+   "background": [
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "player_names": [
+    "ab",
+    "c"
+   ],
+   "player_feature_indices": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "original_exact_result": {
+    "attributions": [
+     0.5,
+     0.5
+    ],
+    "baseline": 0,
+    "prediction": 1,
+    "attribution_sum": 1.0,
+    "efficiency_residual": 0.0,
+    "coalition_values": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "coalition_index": "integer mask, bit j includes all features in group_names[j]",
+    "background_rows": 1,
+    "coalitions": 4,
+    "model_evaluations": 4,
+    "game": "empirical_background_atomic_group_replacement",
+    "scope": "Exact enumeration of this finite-background game, up to floating-point arithmetic. Not conditional SHAP, a confidence interval, causal attribution, data-manifold validity or proof of model quality. Hybrid rows can be out of distribution. Background choice and score units/link change the explanation. Callback determinism is required but not verified. Groups are atomic players and change the coalition game. Group attribution generally differs from summed individual-feature attribution. No within-group credit allocation, automatic group discovery, conditional masking or causal guarantee. Grouping prevents only within-group hybrid splits, not dependence breaks across groups.",
+    "group_names": [
+     "ab",
+     "c"
+    ],
+    "feature_names": [
+     "a",
+     "b",
+     "c"
+    ],
+    "group_feature_indices": [
+     [
+      0,
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "attribution_unit": "atomic_group_in_group_names_order"
+   },
+   "coalitions": [
+    {
+     "mask": 0,
+     "players": [],
+     "included_features": [],
+     "value": 0,
+     "evaluated_rows": [
+      {
+       "background_index": 0,
+       "call_index": 0,
+       "row": [
+        0,
+        0,
+        0
+       ],
+       "score": 0
+      }
+     ]
+    },
+    {
+     "mask": 1,
+     "players": [
+      "ab"
+     ],
+     "included_features": [
+      0,
+      1
+     ],
+     "value": 0,
+     "evaluated_rows": [
+      {
+       "background_index": 0,
+       "call_index": 1,
+       "row": [
+        1,
+        1,
+        0
+       ],
+       "score": 0
+      }
+     ]
+    },
+    {
+     "mask": 2,
+     "players": [
+      "c"
+     ],
+     "included_features": [
+      2
+     ],
+     "value": 0,
+     "evaluated_rows": [
+      {
+       "background_index": 0,
+       "call_index": 2,
+       "row": [
+        0,
+        0,
+        1
+       ],
+       "score": 0
+      }
+     ]
+    },
+    {
+     "mask": 3,
+     "players": [
+      "ab",
+      "c"
+     ],
+     "included_features": [
+      0,
+      1,
+      2
+     ],
+     "value": 1,
+     "evaluated_rows": [
+      {
+       "background_index": null,
+       "call_index": 3,
+       "row": [
+        1,
+        1,
+        1
+       ],
+       "score": 1
+      }
+     ]
+    }
+   ],
+   "marginals": [
+    {
+     "player": "ab",
+     "player_index": 0,
+     "terms": [
+      {
+       "from_mask": 0,
+       "to_mask": 1,
+       "predecessor_count": 0,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 0,
+       "weighted_delta": 0.0
+      },
+      {
+       "from_mask": 2,
+       "to_mask": 3,
+       "predecessor_count": 1,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 1,
+       "weighted_delta": 0.5
+      }
+     ],
+     "sum": 0.5
+    },
+    {
+     "player": "c",
+     "player_index": 1,
+     "terms": [
+      {
+       "from_mask": 0,
+       "to_mask": 2,
+       "predecessor_count": 0,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 0,
+       "weighted_delta": 0.0
+      },
+      {
+       "from_mask": 1,
+       "to_mask": 3,
+       "predecessor_count": 1,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 1,
+       "weighted_delta": 0.5
+      }
+     ],
+     "sum": 0.5
+    }
+   ],
+   "permutation_paths": [
+    {
+     "order": [
+      0,
+      1
+     ],
+     "steps": [
+      {
+       "player_index": 0,
+       "from_mask": 0,
+       "to_mask": 1,
+       "delta": 0
+      },
+      {
+       "player_index": 1,
+       "from_mask": 1,
+       "to_mask": 3,
+       "delta": 1
+      }
+     ],
+     "increments": [
+      0,
+      1
+     ],
+     "sum": 1.0,
+     "efficiency_residual": 0.0
+    },
+    {
+     "order": [
+      1,
+      0
+     ],
+     "steps": [
+      {
+       "player_index": 1,
+       "from_mask": 0,
+       "to_mask": 2,
+       "delta": 0
+      },
+      {
+       "player_index": 0,
+       "from_mask": 2,
+       "to_mask": 3,
+       "delta": 1
+      }
+     ],
+     "increments": [
+      1,
+      0
+     ],
+     "sum": 1.0,
+     "efficiency_residual": 0.0
+    }
+   ],
+   "permutation_mean_attributions": [
+    0.5,
+    0.5
+   ],
+   "permutation_mean_discrepancy": 0.0,
+   "additional_score_calls": 0,
+   "scope": "Actual calls to the existing exact engine; cached values supply marginal/path audits. Complete small permutation enumeration, not sampled permutations. Binary64 arithmetic, not exact-real guarantees. Fixed empirical-background replacement game, not conditional imputation, causal effects, representative backgrounds or explanation quality. Groups are atomic players, not sums or an Owen within-group allocation. No data-manifold test; caller owns callback determinism and model provenance."
+  }
+ },
+ {
+  "feature": 2,
+  "value": -1,
+  "witness": {
+   "version": 1,
+   "feature_names": [
+    "a",
+    "b",
+    "c"
+   ],
+   "point": [
+    1,
+    1,
+    -1
+   ],
+   "background": [
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "player_names": [
+    "ab",
+    "c"
+   ],
+   "player_feature_indices": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "original_exact_result": {
+    "attributions": [
+     -0.5,
+     -0.5
+    ],
+    "baseline": 0,
+    "prediction": -1,
+    "attribution_sum": -1.0,
+    "efficiency_residual": 0.0,
+    "coalition_values": [
+     0,
+     0,
+     0,
+     -1
+    ],
+    "coalition_index": "integer mask, bit j includes all features in group_names[j]",
+    "background_rows": 1,
+    "coalitions": 4,
+    "model_evaluations": 4,
+    "game": "empirical_background_atomic_group_replacement",
+    "scope": "Exact enumeration of this finite-background game, up to floating-point arithmetic. Not conditional SHAP, a confidence interval, causal attribution, data-manifold validity or proof of model quality. Hybrid rows can be out of distribution. Background choice and score units/link change the explanation. Callback determinism is required but not verified. Groups are atomic players and change the coalition game. Group attribution generally differs from summed individual-feature attribution. No within-group credit allocation, automatic group discovery, conditional masking or causal guarantee. Grouping prevents only within-group hybrid splits, not dependence breaks across groups.",
+    "group_names": [
+     "ab",
+     "c"
+    ],
+    "feature_names": [
+     "a",
+     "b",
+     "c"
+    ],
+    "group_feature_indices": [
+     [
+      0,
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "attribution_unit": "atomic_group_in_group_names_order"
+   },
+   "coalitions": [
+    {
+     "mask": 0,
+     "players": [],
+     "included_features": [],
+     "value": 0,
+     "evaluated_rows": [
+      {
+       "background_index": 0,
+       "call_index": 0,
+       "row": [
+        0,
+        0,
+        0
+       ],
+       "score": 0
+      }
+     ]
+    },
+    {
+     "mask": 1,
+     "players": [
+      "ab"
+     ],
+     "included_features": [
+      0,
+      1
+     ],
+     "value": 0,
+     "evaluated_rows": [
+      {
+       "background_index": 0,
+       "call_index": 1,
+       "row": [
+        1,
+        1,
+        0
+       ],
+       "score": 0
+      }
+     ]
+    },
+    {
+     "mask": 2,
+     "players": [
+      "c"
+     ],
+     "included_features": [
+      2
+     ],
+     "value": 0,
+     "evaluated_rows": [
+      {
+       "background_index": 0,
+       "call_index": 2,
+       "row": [
+        0,
+        0,
+        -1
+       ],
+       "score": 0
+      }
+     ]
+    },
+    {
+     "mask": 3,
+     "players": [
+      "ab",
+      "c"
+     ],
+     "included_features": [
+      0,
+      1,
+      2
+     ],
+     "value": -1,
+     "evaluated_rows": [
+      {
+       "background_index": null,
+       "call_index": 3,
+       "row": [
+        1,
+        1,
+        -1
+       ],
+       "score": -1
+      }
+     ]
+    }
+   ],
+   "marginals": [
+    {
+     "player": "ab",
+     "player_index": 0,
+     "terms": [
+      {
+       "from_mask": 0,
+       "to_mask": 1,
+       "predecessor_count": 0,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 0,
+       "weighted_delta": 0.0
+      },
+      {
+       "from_mask": 2,
+       "to_mask": 3,
+       "predecessor_count": 1,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": -1,
+       "weighted_delta": -0.5
+      }
+     ],
+     "sum": -0.5
+    },
+    {
+     "player": "c",
+     "player_index": 1,
+     "terms": [
+      {
+       "from_mask": 0,
+       "to_mask": 2,
+       "predecessor_count": 0,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 0,
+       "weighted_delta": 0.0
+      },
+      {
+       "from_mask": 1,
+       "to_mask": 3,
+       "predecessor_count": 1,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": -1,
+       "weighted_delta": -0.5
+      }
+     ],
+     "sum": -0.5
+    }
+   ],
+   "permutation_paths": [
+    {
+     "order": [
+      0,
+      1
+     ],
+     "steps": [
+      {
+       "player_index": 0,
+       "from_mask": 0,
+       "to_mask": 1,
+       "delta": 0
+      },
+      {
+       "player_index": 1,
+       "from_mask": 1,
+       "to_mask": 3,
+       "delta": -1
+      }
+     ],
+     "increments": [
+      0,
+      -1
+     ],
+     "sum": -1.0,
+     "efficiency_residual": 0.0
+    },
+    {
+     "order": [
+      1,
+      0
+     ],
+     "steps": [
+      {
+       "player_index": 1,
+       "from_mask": 0,
+       "to_mask": 2,
+       "delta": 0
+      },
+      {
+       "player_index": 0,
+       "from_mask": 2,
+       "to_mask": 3,
+       "delta": -1
+      }
+     ],
+     "increments": [
+      -1,
+      0
+     ],
+     "sum": -1.0,
+     "efficiency_residual": 0.0
+    }
+   ],
+   "permutation_mean_attributions": [
+    -0.5,
+    -0.5
+   ],
+   "permutation_mean_discrepancy": 0.0,
+   "additional_score_calls": 0,
+   "scope": "Actual calls to the existing exact engine; cached values supply marginal/path audits. Complete small permutation enumeration, not sampled permutations. Binary64 arithmetic, not exact-real guarantees. Fixed empirical-background replacement game, not conditional imputation, causal effects, representative backgrounds or explanation quality. Groups are atomic players, not sums or an Owen within-group allocation. No data-manifold test; caller owns callback determinism and model provenance."
+  }
+ },
+ {
+  "feature": 2,
+  "value": 0,
+  "witness": {
+   "version": 1,
+   "feature_names": [
+    "a",
+    "b",
+    "c"
+   ],
+   "point": [
+    1,
+    1,
+    0
+   ],
+   "background": [
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "player_names": [
+    "ab",
+    "c"
+   ],
+   "player_feature_indices": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "original_exact_result": {
+    "attributions": [
+     0.0,
+     0.0
+    ],
+    "baseline": 0,
+    "prediction": 0,
+    "attribution_sum": 0.0,
+    "efficiency_residual": 0.0,
+    "coalition_values": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "coalition_index": "integer mask, bit j includes all features in group_names[j]",
+    "background_rows": 1,
+    "coalitions": 4,
+    "model_evaluations": 4,
+    "game": "empirical_background_atomic_group_replacement",
+    "scope": "Exact enumeration of this finite-background game, up to floating-point arithmetic. Not conditional SHAP, a confidence interval, causal attribution, data-manifold validity or proof of model quality. Hybrid rows can be out of distribution. Background choice and score units/link change the explanation. Callback determinism is required but not verified. Groups are atomic players and change the coalition game. Group attribution generally differs from summed individual-feature attribution. No within-group credit allocation, automatic group discovery, conditional masking or causal guarantee. Grouping prevents only within-group hybrid splits, not dependence breaks across groups.",
+    "group_names": [
+     "ab",
+     "c"
+    ],
+    "feature_names": [
+     "a",
+     "b",
+     "c"
+    ],
+    "group_feature_indices": [
+     [
+      0,
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "attribution_unit": "atomic_group_in_group_names_order"
+   },
+   "coalitions": [
+    {
+     "mask": 0,
+     "players": [],
+     "included_features": [],
+     "value": 0,
+     "evaluated_rows": [
+      {
+       "background_index": 0,
+       "call_index": 0,
+       "row": [
+        0,
+        0,
+        0
+       ],
+       "score": 0
+      }
+     ]
+    },
+    {
+     "mask": 1,
+     "players": [
+      "ab"
+     ],
+     "included_features": [
+      0,
+      1
+     ],
+     "value": 0,
+     "evaluated_rows": [
+      {
+       "background_index": 0,
+       "call_index": 1,
+       "row": [
+        1,
+        1,
+        0
+       ],
+       "score": 0
+      }
+     ]
+    },
+    {
+     "mask": 2,
+     "players": [
+      "c"
+     ],
+     "included_features": [
+      2
+     ],
+     "value": 0,
+     "evaluated_rows": [
+      {
+       "background_index": 0,
+       "call_index": 2,
+       "row": [
+        0,
+        0,
+        0
+       ],
+       "score": 0
+      }
+     ]
+    },
+    {
+     "mask": 3,
+     "players": [
+      "ab",
+      "c"
+     ],
+     "included_features": [
+      0,
+      1,
+      2
+     ],
+     "value": 0,
+     "evaluated_rows": [
+      {
+       "background_index": null,
+       "call_index": 3,
+       "row": [
+        1,
+        1,
+        0
+       ],
+       "score": 0
+      }
+     ]
+    }
+   ],
+   "marginals": [
+    {
+     "player": "ab",
+     "player_index": 0,
+     "terms": [
+      {
+       "from_mask": 0,
+       "to_mask": 1,
+       "predecessor_count": 0,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 0,
+       "weighted_delta": 0.0
+      },
+      {
+       "from_mask": 2,
+       "to_mask": 3,
+       "predecessor_count": 1,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 0,
+       "weighted_delta": 0.0
+      }
+     ],
+     "sum": 0.0
+    },
+    {
+     "player": "c",
+     "player_index": 1,
+     "terms": [
+      {
+       "from_mask": 0,
+       "to_mask": 2,
+       "predecessor_count": 0,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 0,
+       "weighted_delta": 0.0
+      },
+      {
+       "from_mask": 1,
+       "to_mask": 3,
+       "predecessor_count": 1,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 0,
+       "weighted_delta": 0.0
+      }
+     ],
+     "sum": 0.0
+    }
+   ],
+   "permutation_paths": [
+    {
+     "order": [
+      0,
+      1
+     ],
+     "steps": [
+      {
+       "player_index": 0,
+       "from_mask": 0,
+       "to_mask": 1,
+       "delta": 0
+      },
+      {
+       "player_index": 1,
+       "from_mask": 1,
+       "to_mask": 3,
+       "delta": 0
+      }
+     ],
+     "increments": [
+      0,
+      0
+     ],
+     "sum": 0.0,
+     "efficiency_residual": 0.0
+    },
+    {
+     "order": [
+      1,
+      0
+     ],
+     "steps": [
+      {
+       "player_index": 1,
+       "from_mask": 0,
+       "to_mask": 2,
+       "delta": 0
+      },
+      {
+       "player_index": 0,
+       "from_mask": 2,
+       "to_mask": 3,
+       "delta": 0
+      }
+     ],
+     "increments": [
+      0,
+      0
+     ],
+     "sum": 0.0,
+     "efficiency_residual": 0.0
+    }
+   ],
+   "permutation_mean_attributions": [
+    0.0,
+    0.0
+   ],
+   "permutation_mean_discrepancy": 0.0,
+   "additional_score_calls": 0,
+   "scope": "Actual calls to the existing exact engine; cached values supply marginal/path audits. Complete small permutation enumeration, not sampled permutations. Binary64 arithmetic, not exact-real guarantees. Fixed empirical-background replacement game, not conditional imputation, causal effects, representative backgrounds or explanation quality. Groups are atomic players, not sums or an Owen within-group allocation. No data-manifold test; caller owns callback determinism and model provenance."
+  }
+ },
+ {
+  "feature": 2,
+  "value": 1,
+  "witness": {
+   "version": 1,
+   "feature_names": [
+    "a",
+    "b",
+    "c"
+   ],
+   "point": [
+    1,
+    1,
+    1
+   ],
+   "background": [
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "player_names": [
+    "ab",
+    "c"
+   ],
+   "player_feature_indices": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "original_exact_result": {
+    "attributions": [
+     0.5,
+     0.5
+    ],
+    "baseline": 0,
+    "prediction": 1,
+    "attribution_sum": 1.0,
+    "efficiency_residual": 0.0,
+    "coalition_values": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "coalition_index": "integer mask, bit j includes all features in group_names[j]",
+    "background_rows": 1,
+    "coalitions": 4,
+    "model_evaluations": 4,
+    "game": "empirical_background_atomic_group_replacement",
+    "scope": "Exact enumeration of this finite-background game, up to floating-point arithmetic. Not conditional SHAP, a confidence interval, causal attribution, data-manifold validity or proof of model quality. Hybrid rows can be out of distribution. Background choice and score units/link change the explanation. Callback determinism is required but not verified. Groups are atomic players and change the coalition game. Group attribution generally differs from summed individual-feature attribution. No within-group credit allocation, automatic group discovery, conditional masking or causal guarantee. Grouping prevents only within-group hybrid splits, not dependence breaks across groups.",
+    "group_names": [
+     "ab",
+     "c"
+    ],
+    "feature_names": [
+     "a",
+     "b",
+     "c"
+    ],
+    "group_feature_indices": [
+     [
+      0,
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "attribution_unit": "atomic_group_in_group_names_order"
+   },
+   "coalitions": [
+    {
+     "mask": 0,
+     "players": [],
+     "included_features": [],
+     "value": 0,
+     "evaluated_rows": [
+      {
+       "background_index": 0,
+       "call_index": 0,
+       "row": [
+        0,
+        0,
+        0
+       ],
+       "score": 0
+      }
+     ]
+    },
+    {
+     "mask": 1,
+     "players": [
+      "ab"
+     ],
+     "included_features": [
+      0,
+      1
+     ],
+     "value": 0,
+     "evaluated_rows": [
+      {
+       "background_index": 0,
+       "call_index": 1,
+       "row": [
+        1,
+        1,
+        0
+       ],
+       "score": 0
+      }
+     ]
+    },
+    {
+     "mask": 2,
+     "players": [
+      "c"
+     ],
+     "included_features": [
+      2
+     ],
+     "value": 0,
+     "evaluated_rows": [
+      {
+       "background_index": 0,
+       "call_index": 2,
+       "row": [
+        0,
+        0,
+        1
+       ],
+       "score": 0
+      }
+     ]
+    },
+    {
+     "mask": 3,
+     "players": [
+      "ab",
+      "c"
+     ],
+     "included_features": [
+      0,
+      1,
+      2
+     ],
+     "value": 1,
+     "evaluated_rows": [
+      {
+       "background_index": null,
+       "call_index": 3,
+       "row": [
+        1,
+        1,
+        1
+       ],
+       "score": 1
+      }
+     ]
+    }
+   ],
+   "marginals": [
+    {
+     "player": "ab",
+     "player_index": 0,
+     "terms": [
+      {
+       "from_mask": 0,
+       "to_mask": 1,
+       "predecessor_count": 0,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 0,
+       "weighted_delta": 0.0
+      },
+      {
+       "from_mask": 2,
+       "to_mask": 3,
+       "predecessor_count": 1,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 1,
+       "weighted_delta": 0.5
+      }
+     ],
+     "sum": 0.5
+    },
+    {
+     "player": "c",
+     "player_index": 1,
+     "terms": [
+      {
+       "from_mask": 0,
+       "to_mask": 2,
+       "predecessor_count": 0,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 0,
+       "weighted_delta": 0.0
+      },
+      {
+       "from_mask": 1,
+       "to_mask": 3,
+       "predecessor_count": 1,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 1,
+       "weighted_delta": 0.5
+      }
+     ],
+     "sum": 0.5
+    }
+   ],
+   "permutation_paths": [
+    {
+     "order": [
+      0,
+      1
+     ],
+     "steps": [
+      {
+       "player_index": 0,
+       "from_mask": 0,
+       "to_mask": 1,
+       "delta": 0
+      },
+      {
+       "player_index": 1,
+       "from_mask": 1,
+       "to_mask": 3,
+       "delta": 1
+      }
+     ],
+     "increments": [
+      0,
+      1
+     ],
+     "sum": 1.0,
+     "efficiency_residual": 0.0
+    },
+    {
+     "order": [
+      1,
+      0
+     ],
+     "steps": [
+      {
+       "player_index": 1,
+       "from_mask": 0,
+       "to_mask": 2,
+       "delta": 0
+      },
+      {
+       "player_index": 0,
+       "from_mask": 2,
+       "to_mask": 3,
+       "delta": 1
+      }
+     ],
+     "increments": [
+      1,
+      0
+     ],
+     "sum": 1.0,
+     "efficiency_residual": 0.0
+    }
+   ],
+   "permutation_mean_attributions": [
+    0.5,
+    0.5
+   ],
+   "permutation_mean_discrepancy": 0.0,
+   "additional_score_calls": 0,
+   "scope": "Actual calls to the existing exact engine; cached values supply marginal/path audits. Complete small permutation enumeration, not sampled permutations. Binary64 arithmetic, not exact-real guarantees. Fixed empirical-background replacement game, not conditional imputation, causal effects, representative backgrounds or explanation quality. Groups are atomic players, not sums or an Owen within-group allocation. No data-manifold test; caller owns callback determinism and model provenance."
+  }
+ },
+ {
+  "feature": 2,
+  "value": 2,
+  "witness": {
+   "version": 1,
+   "feature_names": [
+    "a",
+    "b",
+    "c"
+   ],
+   "point": [
+    1,
+    1,
+    2
+   ],
+   "background": [
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "player_names": [
+    "ab",
+    "c"
+   ],
+   "player_feature_indices": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "original_exact_result": {
+    "attributions": [
+     1.0,
+     1.0
+    ],
+    "baseline": 0,
+    "prediction": 2,
+    "attribution_sum": 2.0,
+    "efficiency_residual": 0.0,
+    "coalition_values": [
+     0,
+     0,
+     0,
+     2
+    ],
+    "coalition_index": "integer mask, bit j includes all features in group_names[j]",
+    "background_rows": 1,
+    "coalitions": 4,
+    "model_evaluations": 4,
+    "game": "empirical_background_atomic_group_replacement",
+    "scope": "Exact enumeration of this finite-background game, up to floating-point arithmetic. Not conditional SHAP, a confidence interval, causal attribution, data-manifold validity or proof of model quality. Hybrid rows can be out of distribution. Background choice and score units/link change the explanation. Callback determinism is required but not verified. Groups are atomic players and change the coalition game. Group attribution generally differs from summed individual-feature attribution. No within-group credit allocation, automatic group discovery, conditional masking or causal guarantee. Grouping prevents only within-group hybrid splits, not dependence breaks across groups.",
+    "group_names": [
+     "ab",
+     "c"
+    ],
+    "feature_names": [
+     "a",
+     "b",
+     "c"
+    ],
+    "group_feature_indices": [
+     [
+      0,
+      1
+     ],
+     [
+      2
+     ]
+    ],
+    "attribution_unit": "atomic_group_in_group_names_order"
+   },
+   "coalitions": [
+    {
+     "mask": 0,
+     "players": [],
+     "included_features": [],
+     "value": 0,
+     "evaluated_rows": [
+      {
+       "background_index": 0,
+       "call_index": 0,
+       "row": [
+        0,
+        0,
+        0
+       ],
+       "score": 0
+      }
+     ]
+    },
+    {
+     "mask": 1,
+     "players": [
+      "ab"
+     ],
+     "included_features": [
+      0,
+      1
+     ],
+     "value": 0,
+     "evaluated_rows": [
+      {
+       "background_index": 0,
+       "call_index": 1,
+       "row": [
+        1,
+        1,
+        0
+       ],
+       "score": 0
+      }
+     ]
+    },
+    {
+     "mask": 2,
+     "players": [
+      "c"
+     ],
+     "included_features": [
+      2
+     ],
+     "value": 0,
+     "evaluated_rows": [
+      {
+       "background_index": 0,
+       "call_index": 2,
+       "row": [
+        0,
+        0,
+        2
+       ],
+       "score": 0
+      }
+     ]
+    },
+    {
+     "mask": 3,
+     "players": [
+      "ab",
+      "c"
+     ],
+     "included_features": [
+      0,
+      1,
+      2
+     ],
+     "value": 2,
+     "evaluated_rows": [
+      {
+       "background_index": null,
+       "call_index": 3,
+       "row": [
+        1,
+        1,
+        2
+       ],
+       "score": 2
+      }
+     ]
+    }
+   ],
+   "marginals": [
+    {
+     "player": "ab",
+     "player_index": 0,
+     "terms": [
+      {
+       "from_mask": 0,
+       "to_mask": 1,
+       "predecessor_count": 0,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 0,
+       "weighted_delta": 0.0
+      },
+      {
+       "from_mask": 2,
+       "to_mask": 3,
+       "predecessor_count": 1,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 2,
+       "weighted_delta": 1.0
+      }
+     ],
+     "sum": 1.0
+    },
+    {
+     "player": "c",
+     "player_index": 1,
+     "terms": [
+      {
+       "from_mask": 0,
+       "to_mask": 2,
+       "predecessor_count": 0,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 0,
+       "weighted_delta": 0.0
+      },
+      {
+       "from_mask": 1,
+       "to_mask": 3,
+       "predecessor_count": 1,
+       "weight_numerator": 1,
+       "weight_denominator": 2,
+       "permutation_multiplicity": 1,
+       "delta": 2,
+       "weighted_delta": 1.0
+      }
+     ],
+     "sum": 1.0
+    }
+   ],
+   "permutation_paths": [
+    {
+     "order": [
+      0,
+      1
+     ],
+     "steps": [
+      {
+       "player_index": 0,
+       "from_mask": 0,
+       "to_mask": 1,
+       "delta": 0
+      },
+      {
+       "player_index": 1,
+       "from_mask": 1,
+       "to_mask": 3,
+       "delta": 2
+      }
+     ],
+     "increments": [
+      0,
+      2
+     ],
+     "sum": 2.0,
+     "efficiency_residual": 0.0
+    },
+    {
+     "order": [
+      1,
+      0
+     ],
+     "steps": [
+      {
+       "player_index": 1,
+       "from_mask": 0,
+       "to_mask": 2,
+       "delta": 0
+      },
+      {
+       "player_index": 0,
+       "from_mask": 2,
+       "to_mask": 3,
+       "delta": 2
+      }
+     ],
+     "increments": [
+      2,
+      0
+     ],
+     "sum": 2.0,
+     "efficiency_residual": 0.0
+    }
+   ],
+   "permutation_mean_attributions": [
+    1.0,
+    1.0
+   ],
+   "permutation_mean_discrepancy": 0.0,
+   "additional_score_calls": 0,
+   "scope": "Actual calls to the existing exact engine; cached values supply marginal/path audits. Complete small permutation enumeration, not sampled permutations. Binary64 arithmetic, not exact-real guarantees. Fixed empirical-background replacement game, not conditional imputation, causal effects, representative backgrounds or explanation quality. Groups are atomic players, not sums or an Owen within-group allocation. No data-manifold test; caller owns callback determinism and model provenance."
+  }
+ }
+]

@@ -1,0 +1,712 @@
+{
+  "definition": {
+    "label": "Product / zero background",
+    "kind": "product",
+    "point": [
+      2,
+      3,
+      99
+    ],
+    "background": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        9
+      ]
+    ],
+    "feature_names": [
+      "a",
+      "b",
+      "unused"
+    ]
+  },
+  "baseline": {
+    "version": 1,
+    "feature_names": [
+      "a",
+      "b",
+      "unused"
+    ],
+    "point": [
+      2,
+      3,
+      99
+    ],
+    "background": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        9
+      ]
+    ],
+    "player_names": [
+      "a",
+      "b",
+      "unused"
+    ],
+    "player_feature_indices": [
+      [
+        0
+      ],
+      [
+        1
+      ],
+      [
+        2
+      ]
+    ],
+    "original_exact_result": {
+      "feature_names": [
+        "a",
+        "b",
+        "unused"
+      ],
+      "attributions": [
+        3.0,
+        3.0,
+        0.0
+      ],
+      "baseline": 0,
+      "prediction": 6,
+      "attribution_sum": 6.0,
+      "efficiency_residual": 0.0,
+      "coalition_values": [
+        0,
+        0,
+        0,
+        6,
+        0,
+        0,
+        0,
+        6
+      ],
+      "coalition_index": "integer mask, bit j includes feature_names[j]",
+      "background_rows": 2,
+      "coalitions": 8,
+      "model_evaluations": 15,
+      "game": "empirical_background_replacement",
+      "scope": "Exact enumeration of this finite-background game, up to floating-point arithmetic. Not conditional SHAP, a confidence interval, causal attribution, data-manifold validity or proof of model quality. Hybrid rows can be out of distribution. Background choice and score units/link change the explanation. Callback determinism is required but not verified."
+    },
+    "coalitions": [
+      {
+        "mask": 0,
+        "players": [],
+        "included_features": [],
+        "value": 0,
+        "evaluated_rows": [
+          {
+            "background_index": 0,
+            "call_index": 0,
+            "row": [
+              0,
+              0,
+              0
+            ],
+            "score": 0
+          },
+          {
+            "background_index": 1,
+            "call_index": 1,
+            "row": [
+              0,
+              0,
+              9
+            ],
+            "score": 0
+          }
+        ]
+      },
+      {
+        "mask": 1,
+        "players": [
+          "a"
+        ],
+        "included_features": [
+          0
+        ],
+        "value": 0,
+        "evaluated_rows": [
+          {
+            "background_index": 0,
+            "call_index": 2,
+            "row": [
+              2,
+              0,
+              0
+            ],
+            "score": 0
+          },
+          {
+            "background_index": 1,
+            "call_index": 3,
+            "row": [
+              2,
+              0,
+              9
+            ],
+            "score": 0
+          }
+        ]
+      },
+      {
+        "mask": 2,
+        "players": [
+          "b"
+        ],
+        "included_features": [
+          1
+        ],
+        "value": 0,
+        "evaluated_rows": [
+          {
+            "background_index": 0,
+            "call_index": 4,
+            "row": [
+              0,
+              3,
+              0
+            ],
+            "score": 0
+          },
+          {
+            "background_index": 1,
+            "call_index": 5,
+            "row": [
+              0,
+              3,
+              9
+            ],
+            "score": 0
+          }
+        ]
+      },
+      {
+        "mask": 3,
+        "players": [
+          "a",
+          "b"
+        ],
+        "included_features": [
+          0,
+          1
+        ],
+        "value": 6,
+        "evaluated_rows": [
+          {
+            "background_index": 0,
+            "call_index": 6,
+            "row": [
+              2,
+              3,
+              0
+            ],
+            "score": 6
+          },
+          {
+            "background_index": 1,
+            "call_index": 7,
+            "row": [
+              2,
+              3,
+              9
+            ],
+            "score": 6
+          }
+        ]
+      },
+      {
+        "mask": 4,
+        "players": [
+          "unused"
+        ],
+        "included_features": [
+          2
+        ],
+        "value": 0,
+        "evaluated_rows": [
+          {
+            "background_index": 0,
+            "call_index": 8,
+            "row": [
+              0,
+              0,
+              99
+            ],
+            "score": 0
+          },
+          {
+            "background_index": 1,
+            "call_index": 9,
+            "row": [
+              0,
+              0,
+              99
+            ],
+            "score": 0
+          }
+        ]
+      },
+      {
+        "mask": 5,
+        "players": [
+          "a",
+          "unused"
+        ],
+        "included_features": [
+          0,
+          2
+        ],
+        "value": 0,
+        "evaluated_rows": [
+          {
+            "background_index": 0,
+            "call_index": 10,
+            "row": [
+              2,
+              0,
+              99
+            ],
+            "score": 0
+          },
+          {
+            "background_index": 1,
+            "call_index": 11,
+            "row": [
+              2,
+              0,
+              99
+            ],
+            "score": 0
+          }
+        ]
+      },
+      {
+        "mask": 6,
+        "players": [
+          "b",
+          "unused"
+        ],
+        "included_features": [
+          1,
+          2
+        ],
+        "value": 0,
+        "evaluated_rows": [
+          {
+            "background_index": 0,
+            "call_index": 12,
+            "row": [
+              0,
+              3,
+              99
+            ],
+            "score": 0
+          },
+          {
+            "background_index": 1,
+            "call_index": 13,
+            "row": [
+              0,
+              3,
+              99
+            ],
+            "score": 0
+          }
+        ]
+      },
+      {
+        "mask": 7,
+        "players": [
+          "a",
+          "b",
+          "unused"
+        ],
+        "included_features": [
+          0,
+          1,
+          2
+        ],
+        "value": 6,
+        "evaluated_rows": [
+          {
+            "background_index": null,
+            "call_index": 14,
+            "row": [
+              2,
+              3,
+              99
+            ],
+            "score": 6
+          }
+        ]
+      }
+    ],
+    "marginals": [
+      {
+        "player": "a",
+        "player_index": 0,
+        "terms": [
+          {
+            "from_mask": 0,
+            "to_mask": 1,
+            "predecessor_count": 0,
+            "weight_numerator": 1,
+            "weight_denominator": 3,
+            "permutation_multiplicity": 2,
+            "delta": 0,
+            "weighted_delta": 0.0
+          },
+          {
+            "from_mask": 2,
+            "to_mask": 3,
+            "predecessor_count": 1,
+            "weight_numerator": 1,
+            "weight_denominator": 6,
+            "permutation_multiplicity": 1,
+            "delta": 6,
+            "weighted_delta": 1.0
+          },
+          {
+            "from_mask": 4,
+            "to_mask": 5,
+            "predecessor_count": 1,
+            "weight_numerator": 1,
+            "weight_denominator": 6,
+            "permutation_multiplicity": 1,
+            "delta": 0,
+            "weighted_delta": 0.0
+          },
+          {
+            "from_mask": 6,
+            "to_mask": 7,
+            "predecessor_count": 2,
+            "weight_numerator": 1,
+            "weight_denominator": 3,
+            "permutation_multiplicity": 2,
+            "delta": 6,
+            "weighted_delta": 2.0
+          }
+        ],
+        "sum": 3.0
+      },
+      {
+        "player": "b",
+        "player_index": 1,
+        "terms": [
+          {
+            "from_mask": 0,
+            "to_mask": 2,
+            "predecessor_count": 0,
+            "weight_numerator": 1,
+            "weight_denominator": 3,
+            "permutation_multiplicity": 2,
+            "delta": 0,
+            "weighted_delta": 0.0
+          },
+          {
+            "from_mask": 1,
+            "to_mask": 3,
+            "predecessor_count": 1,
+            "weight_numerator": 1,
+            "weight_denominator": 6,
+            "permutation_multiplicity": 1,
+            "delta": 6,
+            "weighted_delta": 1.0
+          },
+          {
+            "from_mask": 4,
+            "to_mask": 6,
+            "predecessor_count": 1,
+            "weight_numerator": 1,
+            "weight_denominator": 6,
+            "permutation_multiplicity": 1,
+            "delta": 0,
+            "weighted_delta": 0.0
+          },
+          {
+            "from_mask": 5,
+            "to_mask": 7,
+            "predecessor_count": 2,
+            "weight_numerator": 1,
+            "weight_denominator": 3,
+            "permutation_multiplicity": 2,
+            "delta": 6,
+            "weighted_delta": 2.0
+          }
+        ],
+        "sum": 3.0
+      },
+      {
+        "player": "unused",
+        "player_index": 2,
+        "terms": [
+          {
+            "from_mask": 0,
+            "to_mask": 4,
+            "predecessor_count": 0,
+            "weight_numerator": 1,
+            "weight_denominator": 3,
+            "permutation_multiplicity": 2,
+            "delta": 0,
+            "weighted_delta": 0.0
+          },
+          {
+            "from_mask": 1,
+            "to_mask": 5,
+            "predecessor_count": 1,
+            "weight_numerator": 1,
+            "weight_denominator": 6,
+            "permutation_multiplicity": 1,
+            "delta": 0,
+            "weighted_delta": 0.0
+          },
+          {
+            "from_mask": 2,
+            "to_mask": 6,
+            "predecessor_count": 1,
+            "weight_numerator": 1,
+            "weight_denominator": 6,
+            "permutation_multiplicity": 1,
+            "delta": 0,
+            "weighted_delta": 0.0
+          },
+          {
+            "from_mask": 3,
+            "to_mask": 7,
+            "predecessor_count": 2,
+            "weight_numerator": 1,
+            "weight_denominator": 3,
+            "permutation_multiplicity": 2,
+            "delta": 0,
+            "weighted_delta": 0.0
+          }
+        ],
+        "sum": 0.0
+      }
+    ],
+    "permutation_paths": [
+      {
+        "order": [
+          0,
+          1,
+          2
+        ],
+        "steps": [
+          {
+            "player_index": 0,
+            "from_mask": 0,
+            "to_mask": 1,
+            "delta": 0
+          },
+          {
+            "player_index": 1,
+            "from_mask": 1,
+            "to_mask": 3,
+            "delta": 6
+          },
+          {
+            "player_index": 2,
+            "from_mask": 3,
+            "to_mask": 7,
+            "delta": 0
+          }
+        ],
+        "increments": [
+          0,
+          6,
+          0
+        ],
+        "sum": 6.0,
+        "efficiency_residual": 0.0
+      },
+      {
+        "order": [
+          0,
+          2,
+          1
+        ],
+        "steps": [
+          {
+            "player_index": 0,
+            "from_mask": 0,
+            "to_mask": 1,
+            "delta": 0
+          },
+          {
+            "player_index": 2,
+            "from_mask": 1,
+            "to_mask": 5,
+            "delta": 0
+          },
+          {
+            "player_index": 1,
+            "from_mask": 5,
+            "to_mask": 7,
+            "delta": 6
+          }
+        ],
+        "increments": [
+          0,
+          6,
+          0
+        ],
+        "sum": 6.0,
+        "efficiency_residual": 0.0
+      },
+      {
+        "order": [
+          1,
+          0,
+          2
+        ],
+        "steps": [
+          {
+            "player_index": 1,
+            "from_mask": 0,
+            "to_mask": 2,
+            "delta": 0
+          },
+          {
+            "player_index": 0,
+            "from_mask": 2,
+            "to_mask": 3,
+            "delta": 6
+          },
+          {
+            "player_index": 2,
+            "from_mask": 3,
+            "to_mask": 7,
+            "delta": 0
+          }
+        ],
+        "increments": [
+          6,
+          0,
+          0
+        ],
+        "sum": 6.0,
+        "efficiency_residual": 0.0
+      },
+      {
+        "order": [
+          1,
+          2,
+          0
+        ],
+        "steps": [
+          {
+            "player_index": 1,
+            "from_mask": 0,
+            "to_mask": 2,
+            "delta": 0
+          },
+          {
+            "player_index": 2,
+            "from_mask": 2,
+            "to_mask": 6,
+            "delta": 0
+          },
+          {
+            "player_index": 0,
+            "from_mask": 6,
+            "to_mask": 7,
+            "delta": 6
+          }
+        ],
+        "increments": [
+          6,
+          0,
+          0
+        ],
+        "sum": 6.0,
+        "efficiency_residual": 0.0
+      },
+      {
+        "order": [
+          2,
+          0,
+          1
+        ],
+        "steps": [
+          {
+            "player_index": 2,
+            "from_mask": 0,
+            "to_mask": 4,
+            "delta": 0
+          },
+          {
+            "player_index": 0,
+            "from_mask": 4,
+            "to_mask": 5,
+            "delta": 0
+          },
+          {
+            "player_index": 1,
+            "from_mask": 5,
+            "to_mask": 7,
+            "delta": 6
+          }
+        ],
+        "increments": [
+          0,
+          6,
+          0
+        ],
+        "sum": 6.0,
+        "efficiency_residual": 0.0
+      },
+      {
+        "order": [
+          2,
+          1,
+          0
+        ],
+        "steps": [
+          {
+            "player_index": 2,
+            "from_mask": 0,
+            "to_mask": 4,
+            "delta": 0
+          },
+          {
+            "player_index": 1,
+            "from_mask": 4,
+            "to_mask": 6,
+            "delta": 0
+          },
+          {
+            "player_index": 0,
+            "from_mask": 6,
+            "to_mask": 7,
+            "delta": 6
+          }
+        ],
+        "increments": [
+          6,
+          0,
+          0
+        ],
+        "sum": 6.0,
+        "efficiency_residual": 0.0
+      }
+    ],
+    "permutation_mean_attributions": [
+      3.0,
+      3.0,
+      0.0
+    ],
+    "permutation_mean_discrepancy": 0.0,
+    "additional_score_calls": 0,
+    "scope": "Actual calls to the existing exact engine; cached values supply marginal/path audits. Complete small permutation enumeration, not sampled permutations. Binary64 arithmetic, not exact-real guarantees. Fixed empirical-background replacement game, not conditional imputation, causal effects, representative backgrounds or explanation quality. Groups are atomic players, not sums or an Owen within-group allocation. No data-manifold test; caller owns callback determinism and model provenance."
+  }
+}
