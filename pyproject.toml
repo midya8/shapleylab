@@ -1,6 +1,6 @@
 [project]
 name = "shapleylab"
-version = "0.2.0"
+version = "0.3.0"
 description = "Exact small-feature empirical-background Shapley attribution"
 requires-python = ">=3.10"
 license = {text = "MIT"}
@@ -11,3 +11,6 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.package-data]
 shapleylab = ["artifacts/*.json"]
+
+[project.scripts]
+shapleylab-owen = "shapleylab.owen_cli:main"
