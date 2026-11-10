@@ -2,7 +2,7 @@
 
 Exact small-feature Shapley attribution from scratch, with every coalition
 available for audit. Dependency-free Python 3.10+, scalar callback API, strict
-JSON CLI and 43 tests. No model training or paid APIs. Exact mode enumerates all coalitions; an
+JSON CLI and 72 tests. No model training or paid APIs. Exact mode enumerates all coalitions; an
 optional, separately labeled permutation mode handles larger individual games.
 
 ## Exact arithmetic is not a causal explanation
@@ -271,3 +271,41 @@ misallocating individual shares. These are original exact counterexamples,
 not a trained-model or real-data explanation benchmark. Browser counts are a
 fixed-game evaluation plan, native counts are actual logged callbacks. Neither
 is a source-authenticity, causal, calibration or explanation-quality certificate.
+
+
+## Together changes the share: two-level Owen allocation (0.3)
+
+On the same three-way product game, ordinary feature credits are
+`[1/3, 1/3, 1/3]`. Keep `a,b` together and `c` separate: Owen member credits
+become `[1/4, 1/4, 1/2]`, with atomic group shares `[1/2, 1/2]`.
+The score and background did not change. The allowed arrival orders did.
+
+The new mode retains every background-replacement evaluation, both member
+coefficient traces, the separate quotient-group calculation, and every complete
+block-contiguous ordering. A generator-independent checker replays the declared
+score and full report. An independent JavaScript permutation-count engine lets
+you edit a bounded synthetic game and download a native-verifiable report.
+This is a supplied two-level partition, not arbitrary hierarchical Partition
+SHAP, conditional masking, group discovery, causal effect or a new theorem.
+
+```python
+from shapleylab.owen import allocate_owen, explain_owen
+from shapleylab.owen_report import audit_owen
+from shapleylab.owen_report_verify import verify_audit
+```
+
+```sh
+python -m shapleylab.owen_cli request.json --output report.json
+python -m shapleylab.owen_cli report.json --verify
+bash examples/check_owen_wheel.sh
+```
+
+Standalone supplied-table allocation supports up to 8 features. Full declared
+score reports and the browser support up to 6 features and 32 background rows.
+The callback mode reuses the original full game and adds zero score calls;
+groups do not reduce its evaluation count. Computed float leaves compare at
+absolute/relative `1e-12`; integer metadata remain exact. Replay is arithmetic
+evidence, not authentication or a global error bound.
+
+[Read the complete method, limits, source ledger and reproduction](OWEN.md).
+The original exact/grouped/sampled ledger, its commands and API remain intact.
