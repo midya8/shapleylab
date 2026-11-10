@@ -21,7 +21,7 @@ from shapleylab.owen_report import audit_owen
 print(json.dumps([audit_owen(c['request'])for c in definitions()]))`],{cwd:path.join(__dirname,'..'),maxBuffer:64*1024*1024}));
   const counts={reports:0,evaluations:0,terms:0,ordinaryTerms:0,groupTerms:0,paths:0,steps:0,downloads:0};
   const screenDir=process.env.OWEN_SCREEN_DIR;if(screenDir)fs.mkdirSync(screenDir,{recursive:true});
-  async function shot(name,width){if(!screenDir)return;await js('document.activeElement.blur();window.scrollTo(0,0)');const metrics=await call('Page.getLayoutMetrics'),image=await call('Page.captureScreenshot',{format:'png',captureBeyondViewport:true,clip:{x:0,y:0,width,height:metrics.cssContentSize.height,scale:1}});fs.writeFileSync(path.join(screenDir,name+'.png'),Buffer.from(image.data,'base64'));}
+  async function shot(name,width){if(!screenDir)return;await js('document.activeElement.blur();window.scrollTo(0,0);document.fonts.ready.then(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))))');const metrics=await call('Page.getLayoutMetrics'),image=await call('Page.captureScreenshot',{format:'png',captureBeyondViewport:true,clip:{x:0,y:0,width,height:metrics.cssContentSize.height,scale:1}});fs.writeFileSync(path.join(screenDir,name+'.png'),Buffer.from(image.data,'base64'));}
   for(const width of [1280,390,320]){
    await call('Emulation.setDeviceMetricsOverride',{width,height:1000,deviceScaleFactor:1,mobile:width<700});
    for(let k=0;k<refs.length;k++){
