@@ -40,3 +40,30 @@ test('strict duplicate/nonfinite/oversize/index-token parsing, schema, input iso
  const diagonal=I.inspect(OWEN_CONTROLS.find(c=>c.id==='binary-hybrid-cancellation').request);assert.deepEqual(diagonal.allocation.attributions,[0,0]);assert.ok(diagonal.replacement_evaluations.some(x=>x.score===1));
 });
 module.exports={close};
+
+
+test('broad-magnitude real-coordinate models and cancellation-sensitive binary64 summation remain native-verifiable',()=>{
+ const script=`import json,random,itertools
+r=random.Random(99827);requests=[]
+for t in range(200):
+ n=1+t%6;p=[[],[],[]]
+ for j in range(n):p[r.randrange(3)].append(j)
+ supports=[list(s)for k in range(1,n+1)for s in itertools.combinations(range(n),k)];r.shuffle(supports)
+ requests.append(dict(feature_names=[str(i)for i in range(n)],point=[r.uniform(-100,100)for _ in range(n)],background=[[r.uniform(-100,100)for _ in range(n)]for _ in range(1+t%3)],groups=[dict(name=str(k),features=s)for k,s in enumerate(x for x in p if x)],model=dict(bias=r.uniform(-100,100),terms=[dict(features=s,weight=r.uniform(-100,100))for s in supports[:32]],output='raw'if t%2 else 'sigmoid')))
+for weights in [[1,2**-53,2**-54],[1,2**-53,-2**-54],[1,2**-53],[1,-1,2**-1074],[100,1e-14,-100],[0.0,-0.0]]:
+ supports=[[0],[1],[0,1]]
+ requests.append(dict(feature_names=['a','b'],point=[1,1],background=[[1,1]],groups=[dict(name='all',features=[0,1])],model=dict(bias=weights[0],terms=[dict(features=s,weight=w)for s,w in zip(supports,weights[1:])],output='raw')))
+print(json.dumps(requests))`;
+ const requests=JSON.parse(cp.execFileSync(process.env.PYTHON||'python',['-c',script],{maxBuffer:32*1024*1024}));assert.equal(requests.length,206);const reports=requests.map(I.inspect);
+ const exactScores=JSON.parse(cp.execFileSync(process.env.PYTHON||'python',['-c',`import json,sys
+from shapleylab.owen_report import audit_owen
+print(json.dumps([audit_owen(r)['replacement_evaluations'][0]['score']for r in json.load(sys.stdin)]))`],{input:JSON.stringify(requests.slice(-6))}));reports.slice(-6).forEach((report,j)=>assert.equal(report.replacement_evaluations[0].score,exactScores[j]));
+ const output=cp.execFileSync(process.env.PYTHON||'python',['-c',`import json,sys
+from shapleylab.owen_report_verify import verify_audit
+from shapleylab.owen_report import audit_owen
+reports=json.load(sys.stdin)
+for report in reports:
+ assert verify_audit(report)
+ assert verify_audit(audit_owen(report['request']))
+print(len(reports))`],{cwd:require('node:path').join(__dirname,'..'),input:JSON.stringify(reports),maxBuffer:64*1024*1024});assert.equal(Number(output.toString()),206);console.log('206broad-magnitude/half-even/subnormal/cancellation reports native-verified');
+});
