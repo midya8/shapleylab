@@ -2,7 +2,15 @@
 (function(root){
 const clone=x=>JSON.parse(JSON.stringify(x));
 const exactKeys=(x,keys)=>x!==null&&typeof x==='object'&&!Array.isArray(x)&&Object.keys(x).sort().join('|')===keys.slice().sort().join('|');
-const sum=values=>{const partials=[];for(let x of values){if(!Number.isFinite(x))throw Error('Nonfinite arithmetic');let i=0;for(let y of partials){if(Math.abs(x)<Math.abs(y))[x,y]=[y,x];const hi=x+y,lo=y-(hi-x);if(lo)partials[i++]=lo;x=hi;}partials.length=i;partials.push(x);}let result=0;for(let k=partials.length-1;k>=0;k--)result+=partials[k];if(!Number.isFinite(result))throw Error('Nonfinite sum');return result;};
+// Exact accumulation of the input binary64 values in integer units of 2^-1074,
+// followed by one round-to-nearest, ties-to-even conversion. Original code.
+// This avoids a second rounding when collapsing a compensated expansion.
+const sum=values=>{let total=0n;const view=new DataView(new ArrayBuffer(8));
+ for(const x of values){if(!Number.isFinite(x))throw Error('Nonfinite arithmetic');view.setFloat64(0,x,false);const bits=view.getBigUint64(0,false),e=Number((bits>>52n)&2047n),f=bits&((1n<<52n)-1n),mantissa=e?f+(1n<<52n):f,shift=e?e-1:0;const units=mantissa<<BigInt(shift);total+=(bits>>63n)?-units:units;}
+ if(total===0n)return 0;const negative=total<0n;if(negative)total=-total;const length=total.toString(2).length,shift=Math.max(0,length-53);let top=total>>BigInt(shift);
+ if(shift){const remainder=total-(top<<BigInt(shift)),half=1n<<BigInt(shift-1);if(remainder>half||(remainder===half&&(top&1n)))top++;}
+ const result=(negative?-1:1)*Number(top)*2**(shift-1074);if(!Number.isFinite(result))throw Error('Nonfinite sum');return result;
+};
 const perms=a=>a.length?a.flatMap((x,i)=>perms(a.filter((_,j)=>j!==i)).map(rest=>[x,...rest])):[[]];
 const factorial=n=>{let value=1;for(let k=2;k<=n;k++)value*=k;return value;};
 function validate(r){
