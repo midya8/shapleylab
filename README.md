@@ -1,11 +1,22 @@
 # ShapleyLab
 
-Exact small-feature Shapley attribution from scratch, with every coalition
-available for audit. Dependency-free Python 3.10+, scalar callback API, strict
-JSON CLI and 72 tests. No model training or paid APIs. Exact mode enumerates all coalitions; an
-optional, separately labeled permutation mode handles larger individual games.
+ShapleyLab computes feature credit for small, declared background-replacement
+games. Inspect every coalition, hybrid input and marginal contribution in Python
+or the browser. The Python runtime has no dependencies and needs Python 3.10+;
+it provides a scalar callback API and a strict JSON CLI. No model training or paid APIs.
 
-## Exact arithmetic is not a causal explanation
+## Choose an allocation
+
+- Individual Shapley: evaluate every coalition and average each feature's marginal over all arrival orders.
+- Atomic groups: switch a whole supplied group at once and assign one share per group.
+- Two-level Owen: keep group members contiguous in arrival orders, then assign member shares.
+- Permutation sampling: approximate the individual-feature allocation with seeded random orders.
+
+All four use the declared reference background. They answer different allocation
+questions, not causal ones. The ledger and Owen browser inspectors retain their
+separate bounds.
+
+## Fixed development examples
 
 ```sh
 python -m shapleylab demo
@@ -228,7 +239,7 @@ SHAP's forward/reverse antithetic PermutationExplainer or a new estimator.
 python -m unittest discover -s tests -v
 ```
 
-43 tests cover product symmetry/dummy/efficiency, linear closed form, linearity,
+The original 43 tests cover product symmetry/dummy/efficiency, linear closed form, linearity,
 feature permutation equivariance, independent factorial permutation references
 for dimensions 1-6, correlated joint background, off-manifold hybrids, background
 sensitivity, full coalition audit, exact call counts, early budget rejection,
@@ -255,15 +266,15 @@ PiML and not their optimized algorithms. MIT license.
 `python -m shapleylab audit --input examples/product.json` logs the original
 exact engine's actual calls, then exposes each hybrid row, weighted marginal
 and complete small permutation path without further score calls. Atomic groups
-stay atomic; no post-summed or within-group credits. Ledger bounds:1-6players,
+stay atomic; no post-summed or within-group credits. Ledger bounds: 1-6 players,
 1-32 background rows. The original exact/grouped/sampled APIs keep their bounds.
 
 A dependency-free browser inspector in `docs/` independently recomputes the
 seven original exact synthetic games under bounded target edits. Every reference
 row, score and weighting remains inspectable. Invalid inputs clear stale results
-and exports.95 coordinate-edit witnesses,128 Fraction controls,64 BigInt controls,
-49 Python tests and four Node/actual-Chrome tests support this implementation.
-Installed11-module/four-command reproduction retains original demo and all
+and exports. The ledger release checked 95 coordinate-edit witnesses, 128 Fraction
+controls, 64 BigInt controls, 49 Python tests and four Node/actual-Chrome tests.
+Its installed eleven-module/four-command reproduction retains the original demo and all
 exact/grouped/sampled modes. [Derivation and limits](LEDGER.md).
 
 Zero credits can hide off-diagonal hybrids; one ordering can telescope while
@@ -273,14 +284,14 @@ fixed-game evaluation plan, native counts are actual logged callbacks. Neither
 is a source-authenticity, causal, calibration or explanation-quality certificate.
 
 
-## Together changes the share: two-level Owen allocation (0.3)
+## Two-level Owen allocation (0.3)
 
 On the same three-way product game, ordinary feature credits are
 `[1/3, 1/3, 1/3]`. Keep `a,b` together and `c` separate: Owen member credits
 become `[1/4, 1/4, 1/2]`, with atomic group shares `[1/2, 1/2]`.
 The score and background did not change. The allowed arrival orders did.
 
-The new mode retains every background-replacement evaluation, both member
+The Owen mode retains every background-replacement evaluation, both member
 coefficient traces, the separate quotient-group calculation, and every complete
 block-contiguous ordering. A generator-independent checker replays the declared
 score and full report. An independent JavaScript permutation-count engine lets
